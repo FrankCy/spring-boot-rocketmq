@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  * @mofified By:
  */
 @Service
-@RocketMQMessageListener(topic = "test-topic-2", consumerGroup = "my-consumer_test-topic-2")
+@RocketMQMessageListener(topic = "test-topic-2", consumerGroup = "my-group_test-topic-2")
 public class MyConsumer2 implements RocketMQListener<OrderPaidEvent> {
 
     private static final Log logger = LogFactory.getLog(MyConsumer.class);
