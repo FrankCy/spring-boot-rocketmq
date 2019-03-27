@@ -43,7 +43,6 @@ public class SendOneWayModeMessage implements CommandLineRunner {
             );
             //Call send message to deliver message to one of brokers.
             producer.sendOneway(msg);
-
         }
         //Shut down once the producer instance is not longer in use.
         producer.shutdown();
