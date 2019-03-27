@@ -12,7 +12,7 @@
     <artifactId>rocketmq-official-simple-example</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>send-message</module>
+        <module>provider</module>
         <module>consumer</module>
     </modules>
 
