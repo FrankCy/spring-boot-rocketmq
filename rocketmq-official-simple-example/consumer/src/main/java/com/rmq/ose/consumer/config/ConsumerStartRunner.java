@@ -30,26 +30,25 @@ public class ConsumerStartRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Instantiate with specified consumer group name.
+        // 设置消费端，与请求端分组相同
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
 
-        // Specify name server addresses.
+        // 消费端与发送端名称服务必须相同
         consumer.setNamesrvAddr("localhost:9876");
 
-        // Subscribe one more more topics to consume.
-        consumer.subscribe("TopicTest", "*");
-        // Register callback to execute on arrival of messages fetched from brokers.
-        consumer.registerMessageListener(new MessageListenerConcurrently() {
+        //
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
+        //
+        consumer.subscribe("TopicTest", "*");
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                                                            ConsumeConcurrentlyContext context) {
-                logger.info("Consumer [threadName : " + Thread.currentThread().getName() + ", msgs : " + msgs + "]");
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+                logger.info(Thread.currentThread().getName() + "Receive New Message : " + msgs);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
 
-        //Launch the consumer instance.
         consumer.start();
     }
 }
