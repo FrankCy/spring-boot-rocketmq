@@ -1,5 +1,6 @@
 package com.rmq.ose.send.config;
 
+import com.sb.rm.common.util.DefaultMQProducerSingleton;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -26,13 +27,11 @@ public class SendSynchronouslyMessage implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // 创建消息生产者，并设置生产者分组
-        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
-        // 设置生产者对应的名称服务，集群环境下使用以"，"号间隔，例如：("192.168.10.12:9876,192.168.10.11:9876")
-        producer.setNamesrvAddr("localhost:9876");
+        DefaultMQProducer producer = DefaultMQProducerSingleton.newInstance();
+        producer.setVipChannelEnabled(false);
         // 启动实例
         producer.start();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             // 创建消息，并指定主题、标记、消息内容
             Message msg = new Message(
                     /*主题*/
@@ -40,7 +39,7 @@ public class SendSynchronouslyMessage implements CommandLineRunner {
                     /*所属标记*/
                     "TagA",
                     /*发送的消息*/
-                    ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET)
+                    ("单例模式创建生产者 " + i).getBytes(RemotingHelper.DEFAULT_CHARSET)
             );
             //发送消息(调用生产者配置的经纪人（broker）进行发送)
             SendResult sendResult = producer.send(msg);

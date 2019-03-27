@@ -1,11 +1,14 @@
 package com.rmq.ose.consumer.config;
 
+import com.sb.rm.common.util.DefaultMQProducerSingleton;
+import com.sb.rm.common.util.DefaultMQPushConsumerSingleton;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.boot.CommandLineRunner;
@@ -30,17 +33,15 @@ public class ConsumerStartRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // 设置消费端，与请求端分组相同
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
+        DefaultMQPushConsumer consumer = DefaultMQPushConsumerSingleton.newInstance();
 
-        // 消费端与发送端名称服务必须相同
-        consumer.setNamesrvAddr("localhost:9876");
-
-        //
+        // 配置消费途径
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
-        //
+        // 配置消费目标
         consumer.subscribe("TopicTest", "*");
+
+        // 消费监听
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {

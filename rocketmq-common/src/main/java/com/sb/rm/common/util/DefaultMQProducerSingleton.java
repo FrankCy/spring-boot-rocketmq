@@ -14,14 +14,14 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
  */
 public class DefaultMQProducerSingleton {
     private static class SingletonHolder {
-        private static DefaultMQProducer defaultMQProducer = new DefaultMQProducer();
+        private static DefaultMQProducer defaultMQProducer = new DefaultMQProducer("FRANK_GROUP");
     }
 
     private DefaultMQProducerSingleton() {
     }
 
     public static DefaultMQProducer newInstance() {
-//        SingletonHolder.defaultMQProducer.set
+        SingletonHolder.defaultMQProducer.setNamesrvAddr("localhost:9876");
         return SingletonHolder.defaultMQProducer;
     }
 
