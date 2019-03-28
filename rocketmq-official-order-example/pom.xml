@@ -9,11 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rocketmq-official-simple-example</artifactId>
+    <artifactId>rocketmq-official-order-example</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>provider</module>
-        <module>consumer</module>
+        <module>order-consumer</module>
+        <module>order-provider</module>
     </modules>
+
 
 </project>
