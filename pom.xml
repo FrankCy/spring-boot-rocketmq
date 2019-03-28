@@ -8,6 +8,7 @@
         <module>rocketmq-common</module>
         <module>rocketmq-official-simple-example</module>
         <module>rocketmq-official-order-example</module>
+        <module>rocketmq-official-broadcasting-example</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
