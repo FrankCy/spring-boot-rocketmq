@@ -9,6 +9,7 @@
         <module>rocketmq-official-simple-example</module>
         <module>rocketmq-official-order-example</module>
         <module>rocketmq-official-broadcasting-example</module>
+        <module>rocketmq-official-schedule-example</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
