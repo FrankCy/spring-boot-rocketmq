@@ -11,5 +11,11 @@
 
     <artifactId>provider</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>spring-boot-mq</groupId>
+            <artifactId>rocketmq-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
