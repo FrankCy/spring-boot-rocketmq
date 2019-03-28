@@ -11,6 +11,7 @@
         <module>rocketmq-official-broadcasting-example</module>
         <module>rocketmq-official-schedule-example</module>
         <module>rocketmq-official-batch-example</module>
+        <module>rocketmq-official-filter-example</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
