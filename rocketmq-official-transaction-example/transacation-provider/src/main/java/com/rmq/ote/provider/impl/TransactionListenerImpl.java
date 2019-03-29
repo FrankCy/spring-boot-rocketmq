@@ -60,7 +60,7 @@ public class TransactionListenerImpl implements TransactionListener {
         if (null != status) {
             switch (status) {
                 case 0:
-                    // 准备
+                    // 检查中
                     return LocalTransactionState.UNKNOW;
                 case 1:
                     // 提交消息
