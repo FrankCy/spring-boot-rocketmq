@@ -26,32 +26,25 @@ import java.util.concurrent.*;
  */
 @Component
 public class SendMessage implements CommandLineRunner {
+
     @Override
     public void run(String... args) throws Exception {
 
         TransactionListener transactionListener = new TransactionListenerImpl();
+
         TransactionMQProducer producer = DefaultTransactionMQProducerSingleton.newInstance();
 
         /**
          *
          * * * * * * * —— ThreadPoolExecutor —— * * * * * * * *
          *
-         * Creates a new {@code ThreadPoolExecutor} with the given initial
-         * parameters and default thread factory and rejected execution handler.
-         * It may be more convenient to use one of the {@link Executors} factory
-         * methods instead of this general purpose constructor.
+         * 创建线程池消费者
          *
-         * @param corePoolSize the number of threads to keep in the pool, even
-         *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
-         * @param maximumPoolSize the maximum number of threads to allow in the
-         *        pool
-         * @param keepAliveTime when the number of threads is greater than
-         *        the core, this is the maximum time that excess idle threads
-         *        will wait for new tasks before terminating.
-         * @param unit the time unit for the {@code keepAliveTime} argument
-         * @param workQueue the queue to use for holding tasks before they are
-         *        executed.  This queue will hold only the {@code Runnable}
-         *        tasks submitted by the {@code execute} method.
+         * @param corePoolSize 消费最小线程数
+         * @param maximumPoolSize 消费最大线程数
+         * @param keepAliveTime 线程活跃时间
+         * @param unit keepAliveTime时间单位
+         * @param workQueue 任务之前保存任务的队列容量
          * @throws IllegalArgumentException if one of the following holds:<br>
          *         {@code corePoolSize < 0}<br>
          *         {@code keepAliveTime < 0}<br>
@@ -59,20 +52,28 @@ public class SendMessage implements CommandLineRunner {
          *         {@code maximumPoolSize < corePoolSize}
          * @throws NullPointerException if {@code workQueue} is null
          */
-        ExecutorService executorService = new ThreadPoolExecutor(2, 5, 100, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2000), new ThreadFactory() {
-            @Override
-            public Thread newThread(Runnable r) {
-                Thread thread = new Thread(r);
-                thread.setName("client-transaction-msg-check-thread");
-                return thread;
-            }
-        });
+        ExecutorService executorService = new ThreadPoolExecutor(
+                2,
+                5,
+                100,
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<Runnable>(2000),
+                new ThreadFactory() {
+                    @Override
+                    public Thread newThread(Runnable r) {
+                        Thread thread = new Thread(r);
+                        thread.setName("client-transaction-msg-check-thread");
+                        return thread;
+                    }
+                 }
+         );
 
         producer.setExecutorService(executorService);
         producer.setTransactionListener(transactionListener);
         producer.start();
 
         String[] tags = new String[] {"TagA", "TagB", "TagC", "TagD", "TagE"};
+
         for (int i = 0; i < 10; i++) {
             try {
                 Message msg = new Message(
@@ -93,6 +94,7 @@ public class SendMessage implements CommandLineRunner {
         for (int i = 0; i < 100000; i++) {
             Thread.sleep(1000);
         }
+
         producer.shutdown();
     }
 

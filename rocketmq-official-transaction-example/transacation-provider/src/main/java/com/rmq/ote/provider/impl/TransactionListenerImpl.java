@@ -45,7 +45,7 @@ public class TransactionListenerImpl implements TransactionListener {
 
     /**
      * @description：
-     * 当没有回应准备（半）消息时。经纪人将发送检查消息以检查交易状态，这一点将调用方法来获取本地事务状态。
+     * 当本地消息没有响应时，经纪人将发送请求检查消息，检查本地事务执行状态，从而获取本地事务状态。
      * @version 1.0
      * @author: Yang.Chang
      * @email: cy880708@163.com
