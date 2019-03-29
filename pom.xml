@@ -12,6 +12,7 @@
         <module>rocketmq-official-schedule-example</module>
         <module>rocketmq-official-batch-example</module>
         <module>rocketmq-official-filter-example</module>
+        <module>rocketmq-official-transaction-example</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
