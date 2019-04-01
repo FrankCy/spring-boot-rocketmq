@@ -1,9 +1,6 @@
 package com.rmq.ooe.send.config;
 
 import com.sb.rm.common.util.DefaultMQProducerSingleton;
-import com.sb.rm.common.util.DefaultMQPushConsumerSingleton;
-import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.MQProducer;
 import org.apache.rocketmq.client.producer.MessageQueueSelector;
 import org.apache.rocketmq.client.producer.SendResult;

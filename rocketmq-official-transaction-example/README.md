@@ -110,10 +110,6 @@ public class TransactionListenerImpl implements TransactionListener {
      * @description：
      * 当send transactional prepare（half）消息成功时，将调用此方法执行本地事务。
      * @version 1.0
-     * @author: Yang.Chang
-     * @email: cy880708@163.com
-     * @date: 2019/3/29 上午11:20
-     * @mofified By:
      * @param msg（准备）消息
      * @param arg 自定义业务参数
      */
@@ -129,10 +125,6 @@ public class TransactionListenerImpl implements TransactionListener {
      * @description：
      * 当本地消息没有响应时，经纪人将发送请求检查消息，检查本地事务执行状态，从而获取本地事务状态。
      * @version 1.0
-     * @author: Yang.Chang
-     * @email: cy880708@163.com
-     * @date: 2019/3/29 上午11:21
-     * @mofified By:
      * @param msg 检查消息
      * @return  交易状态
      */
